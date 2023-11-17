@@ -10,8 +10,10 @@ jobs:
   compare:
     runs-on: ubuntu-latest
     env:
-      LOCALVAR: abcde
+      LOCALVAR: testing
 
     steps:
     - name: Print variable
       run: echo $LOCALVAR
+    - name: Print metadata file content
+      run: cat ./metadata/cq-metadata.json
