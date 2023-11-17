@@ -27,6 +27,6 @@ jobs:
             localPath=$(jq -r '.localPath' <<< "$obj")
             envPath=$(jq -r '.envPath' <<< "$obj")
             FILE_FROM_ENV=$(curl -s 'https://dummyjson.com/products/1')
-            cat $FILE_FROM_ENV
-            cat $localPath
+            echo $FILE_FROM_ENV;
+            echo $localPath;
           done
