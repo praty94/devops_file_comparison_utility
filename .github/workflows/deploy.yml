@@ -15,7 +15,23 @@ jobs:
     steps:
     - name: Print variable
       run: echo $LOCALVAR
+
+    - name: Install jq for using JSON
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y jq 
+
     - name: checkout repo
       uses: actions/checkout@v2.3.4
+
     - name: Print metadata file content
       run: cat ./metadata/cq-metadata.json
+    
+    - name: Print file using jq
+      run: |
+        JSON=$(cat file.json)
+        jq -c '.[]' <<< "$JSON" | while read obj; do
+          name=$(jq -r '.name' <<< "$obj")
+          localPath=$(jq -r '.localPath' <<< "$obj")
+          echo "$name is stored in $localPath"
+        done
