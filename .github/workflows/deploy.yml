@@ -35,6 +35,7 @@ jobs:
           localPath=$(jq -r '.localPath' <<< "$obj")
           envPath=$(jq -r '.envPath' <<< "$obj")
           FILE_FROM_ENV=$(curl -s 'https://www.fpl.com/data/fplnw-ea-sweepstakes.json')
+          FILE2=$(wget -0 - https://www.fpl.com/data/fplnw-ea-sweepstakes.json | cat)
           cat $FILE_FROM_ENV
           cat $localPath
         done
