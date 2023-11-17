@@ -15,5 +15,7 @@ jobs:
     steps:
     - name: Print variable
       run: echo $LOCALVAR
+    - name: checkout repo
+      uses: actions/checkout@v2.3.4
     - name: Print metadata file content
       run: cat ./metadata/cq-metadata.json
