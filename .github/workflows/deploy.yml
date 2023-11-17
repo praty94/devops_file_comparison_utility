@@ -2,40 +2,32 @@ name: Deployment Testing
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [master]
   workflow_dispatch:
-
 
 jobs:
   compare:
     runs-on: ubuntu-latest
     env:
       METADATA_FILE_PATH: ./metadata/cq-metadata.json
-
     steps:
-    - name: Print variable
-      run: echo $LOCALVAR
+      - name: Print variable
+        run: echo $LOCALVAR
+      - name: checkout repo
+        uses: actions/checkout@v2.3.4
 
-    - name: Install jq for using JSON
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y jq 
+      - name: Print metadata file content
+        run: cat $METADATA_FILE_PATH
 
-    - name: checkout repo
-      uses: actions/checkout@v2.3.4
-
-    - name: Print metadata file content
-      run: cat $METADATA_FILE_PATH
-    
-    - name: Print file using jq
-      run: |
-        JSON=$(cat $METADATA_FILE_PATH)
-        jq -c '.[]' <<< "$JSON" | while read obj; do
-          name=$(jq -r '.name' <<< "$obj")
-          localPath=$(jq -r '.localPath' <<< "$obj")
-          envPath=$(jq -r '.envPath' <<< "$obj")
-          FILE_FROM_ENV=$(curl -s 'https://www.fpl.com/data/fplnw-ea-sweepstakes.json')
-          FILE2=$(wget -0 - https://www.fpl.com/data/fplnw-ea-sweepstakes.json | cat)
-          cat $FILE_FROM_ENV
-          cat $localPath
-        done
+      - name: Print file using jq
+        run: |
+          JSON=$(cat $METADATA_FILE_PATH)
+          jq -c '.[]' <<< "$JSON" | while read obj; do
+            name=$(jq -r '.name' <<< "$obj")
+            localPath=$(jq -r '.localPath' <<< "$obj")
+            envPath=$(jq -r '.envPath' <<< "$obj")
+            FILE_FROM_ENV=$(curl -s 'https://www.fpl.com/data/fplnw-ea-sweepstakes.json')
+            FILE2=$(wget -0 - https://www.fpl.com/data/fplnw-ea-sweepstakes.json | cat)
+            cat $FILE_FROM_ENV
+            cat $localPath
+          done
