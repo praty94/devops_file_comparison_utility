@@ -10,7 +10,7 @@ jobs:
   compare:
     runs-on: ubuntu-latest
     env:
-      LOCALVAR: testing
+      METADATA_FILE_PATH: ./metadata/cq-metadata.json
 
     steps:
     - name: Print variable
@@ -25,11 +25,11 @@ jobs:
       uses: actions/checkout@v2.3.4
 
     - name: Print metadata file content
-      run: cat ./metadata/cq-metadata.json
+      run: cat $METADATA_FILE_PATH
     
     - name: Print file using jq
       run: |
-        JSON=$(cat file.json)
+        JSON=$(cat $METADATA_FILE_PATH)
         jq -c '.[]' <<< "$JSON" | while read obj; do
           name=$(jq -r '.name' <<< "$obj")
           localPath=$(jq -r '.localPath' <<< "$obj")
