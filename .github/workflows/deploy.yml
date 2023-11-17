@@ -34,7 +34,7 @@ jobs:
           name=$(jq -r '.name' <<< "$obj")
           localPath=$(jq -r '.localPath' <<< "$obj")
           envPath=$(jq -r '.envPath' <<< "$obj")
-          FILE_FROM_ENV=$(curl -s https://www.fpl.com/data/fplnw-ea-sweepstakes.json)
+          FILE_FROM_ENV=$(curl -s 'https://www.fpl.com/data/fplnw-ea-sweepstakes.json')
           cat $FILE_FROM_ENV
           cat $localPath
         done
