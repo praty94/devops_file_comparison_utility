@@ -37,5 +37,5 @@ jobs:
           name=$(jq -r '.name' <<< "$obj")
           localPath=$(jq -r '.localPath' <<< "$obj")
           envPath=$(jq -r '.envPath' <<< "$obj")
-          echo "cat $localPath"
+          cat $localPath
         done
