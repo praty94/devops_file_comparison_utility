@@ -1,6 +1,7 @@
-{
-    "sweepstakes": {
-        "localPath": "src/sweepstakes.json",
+[
+    {
+        "name": "sweepstakes",
+        "localPath": "./src/sweepstakes.json",
         "envPath": "https://www.fpl.com/data/fplnw-ea-sweepstakes.json"
     }
-}
+]
