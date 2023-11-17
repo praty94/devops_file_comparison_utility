@@ -35,6 +35,6 @@ jobs:
           localPath=$(jq -r '.localPath' <<< "$obj")
           envPath=$(jq -r '.envPath' <<< "$obj")
           FILE_FROM_ENV=$(curl -s envPath | jq -c)
-          cat &FILE_FROM_ENV
+          cat $FILE_FROM_ENV
           cat $localPath
         done
