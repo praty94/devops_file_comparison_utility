@@ -1,0 +1,17 @@
+name: Deployment Testing
+
+on:
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    env:
+      LOCALVAR: abcde
+
+    steps:
+    - name: Print variable
+      run: echo $LOCALVAR
